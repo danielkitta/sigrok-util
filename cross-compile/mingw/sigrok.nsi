@@ -138,13 +138,13 @@ Section "sigrok CLI" SectionCli
 	File "${PREFIX}/python32.dll"
 	File "${PREFIX}/python32.zip"
 
+	SetOutPath "$INSTDIR\share"
+
 	; Protocol decoders.
-	SetOutPath "$INSTDIR\decoders"
-	File /r /x "__pycache__" "${PREFIX}/share/libsigrokdecode/decoders/*"
+	File /r /x "__pycache__" /x "*.pyc" "${PREFIX}/share/libsigrokdecode"
 
 	; Firmware files.
-	SetOutPath "$INSTDIR\firmware"
-	File /r "${PREFIX}/share/sigrok-firmware/*"
+	File /r "${PREFIX}/share/sigrok-firmware"
 
 	SetOutPath "$INSTDIR"
 
@@ -263,17 +263,16 @@ Section "Uninstall"
 
 	; Delete all decoders and everything else in decoders/.
 	; There could be *.pyc files or __pycache__ subdirs and so on.
-	RMDir /r "$INSTDIR\decoders\*"
+	RMDir /r "$INSTDIR\share\libsigrokdecode"
 
 	; Delete the firmware files.
-	RMDir /r "$INSTDIR\firmware\*"
+	RMDir /r "$INSTDIR\share\sigrok-firmware"
 
 	; Delete the example *.sr files.
 	RMDir /r "$INSTDIR\examples\*"
 
 	; Delete the install directory and its sub-directories.
-	RMDir "$INSTDIR\decoders"
-	RMDir "$INSTDIR\firmware"
+	RMDir "$INSTDIR\share"
 	RMDir "$INSTDIR\examples"
 	RMDir "$INSTDIR"
 
