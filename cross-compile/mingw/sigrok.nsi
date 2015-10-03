@@ -132,7 +132,7 @@ Section "sigrok CLI" SectionCli
 	File "${PREFIX}/bin/sigrok-cli.exe"
 
 	; Icon.
-	File "sigrok-logo-notext.ico"
+	File "${MUI_ICON}"
 
 	; Python.
 	File "${PREFIX}/python32.dll"
@@ -253,7 +253,8 @@ Section "Uninstall"
 	Delete "$INSTDIR\Uninstall.exe"
 
 	; Delete the application, the application data, and related libs.
-	Delete "$INSTDIR\COPYING"
+	Delete "$INSTDIR\COPYING*"
+	Delete "$INSTDIR\${MUI_ICON}"
 	Delete "$INSTDIR\sigrok-cli.exe"
 	Delete "$INSTDIR\pulseview.exe"
 	Delete "$INSTDIR\zadig.exe"
